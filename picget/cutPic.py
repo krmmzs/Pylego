@@ -1,7 +1,9 @@
 #! /usr/bin python3
 
 
-import cv2
+import sys
+import argparse
+import cv2  # opencv-python
 import os
 
 
@@ -19,6 +21,14 @@ def video_to_frames(video, path_output_dir):
             break
     cv2.destroyAllWindows()
     vidcap.release()
+
+
+# TODO:Interact with the command line(use argparse).
+def main(argv=sys.argv[1:]):
+    args = argparse.pase_args(argv)
+
+    if args.command == "":
+        pass
 
 
 if __name__ == "__main__":
