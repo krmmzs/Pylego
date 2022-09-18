@@ -22,10 +22,13 @@ def video_to_frames(video, path_output_dir):
         while vidcap.isOpened():
             success, image = vidcap.read()
             if success:
-                cv2.imwrite(os.path.join(path_output_dir, "%d.png") % count, image)
+                path = os.path.join(path_output_dir, f"{count}.png")
+                cv2.imwrite(path, image)
                 count += 1
+
             else:
                 break
+
         cv2.destroyAllWindows()
         vidcap.release()
         notification.notify(
