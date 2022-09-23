@@ -1,5 +1,6 @@
 #!/usr/bin python3
 
+import os
 from PIL import Image
 
 # https://github.com/madmaze/pytesseract
@@ -7,9 +8,12 @@ from PIL import Image
 # https://pypi.org/project/pytesseract/
 import pytesseract
 
-text = pytesseract.image_to_string(
-    Image.open("static/2022-09-23_14-31.png"), lang="eng"
-)
+
+def write_file(src, text):
+    with open(src, "w") as f:
+        f.write(text)
 
 
-print(text)
+path = os.path.normpath("/home/mouzaisi/MyGit/Pylego/demo/static/1.png")
+text = pytesseract.image_to_string(Image.open(path), lang="eng")
+write_file("./output.txt", text)
