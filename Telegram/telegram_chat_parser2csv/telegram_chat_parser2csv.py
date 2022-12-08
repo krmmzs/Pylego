@@ -144,7 +144,19 @@ def parse_telegram_to_csv(jdata):
     print(f"file:{chat_name}.csv Successfully generated!")
 
 
-if __name__ == "__main__":
+def read_file(file_path):
+    with open(file_path, "r", encoding="utf-8") as input_file:
+        contents = input_file.read()
+        jdata = json.loads(contents)
+
+        if "chats" not in jdata:
+            parse_telegram_to_csv(jdata)
+        else:
+            for chat in jdata["chats"]["list"]:
+                parse_telegram_to_csv(chat)
+
+
+def main():
     if len(sys.argv) != 2:
         print("ERROR: incorrect number of arguments!")
         print("How to use it:")
@@ -154,12 +166,8 @@ if __name__ == "__main__":
         sys.exit()
     filepath = sys.argv[1]
 
-    with open(filepath, "r", encoding="utf-8") as input_file:
-        contents = input_file.read()
-        jdata = json.loads(contents)
+    read_file(filepath)
 
-        if "chats" not in jdata:
-            parse_telegram_to_csv(jdata)
-        else:
-            for chat in jdata["chats"]["list"]:
-                parse_telegram_to_csv(chat)
+
+if __name__ == "__main__":
+    main()
